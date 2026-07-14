@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的作品集</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: #fafafa;
+            color: #333;
+        }
+
+        /* ========== 顶部导航 ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            padding: 0 30px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        .nav-inner .name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .nav-inner ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+
+        .nav-inner ul a {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-inner ul a:hover {
+            color: #000;
+        }
+
+        /* ========== Hero ========== */
+        .hero {
+            height: 70vh;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(160deg, #f8f6f3 0%, #eee5dd 50%, #e8ddd4 100%);
+            padding: 0 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(200, 170, 140, 0.12);
+            top: -150px;
+            right: -100px;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(180, 150, 120, 0.08);
+            bottom: -80px;
+            left: -60px;
+        }
+
+        .hero-text {
+            z-index: 1;
+            animation: fadeUp 0.8s ease;
+        }
+
+        .hero-text .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            background: #d4c5b9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-text h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+            color: #2c2c2c;
+        }
+
+        .hero-text .tagline {
+            font-size: 1rem;
+            color: #8a7e74;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .hero-text .quote {
+            font-size: 0.9rem;
+            color: #b0a69c;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .hero-text .scroll-hint {
+            display: inline-block;
+            padding: 10px 28px;
+            border: 1px solid #b0a69c;
+            border-radius: 30px;
+            color: #8a7e74;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .hero-text .scroll-hint:hover {
+            background: #2c2c2c;
+            color: #fff;
+            border-color: #2c2c2c;
+        }
+
+        /* ========== 通用 section ========== */
+        section {
+            padding: 70px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .section-title .line {
+            width: 40px;
+            height: 3px;
+            background: #c4a882;
+            margin: 0 auto 12px;
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* ========== 关于我 ========== */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .about-left p {
+            line-height: 2;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .about-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .stat-box {
+            background: #fff;
+            padding: 25px 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+        }
+
+        .stat-box .num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #c4a882;
+            display: block;
+        }
+
+        .stat-box .label {
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        /* ========== 作品展示 ========== */
+        .filter {
+            text-align: center;
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter button {
+            padding: 8px 22px;
+            border: 1px solid #ddd;
+            background: #fff;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #777;
+            transition: all 0.25s;
+        }
+
+        .filter button:hover,
+        .filter button.active {
+            background: #2c2c2c;
+            color: #fff;
+            border-color: #2c2c2c;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 22px;
+        }
+
+        .work-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .work-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .work-card .img-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s;
+        }
+
+        .work-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .work-card .img-wrap .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .work-card:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay span {
+            color: #fff;
+            font-size: 0.9rem;
+            padding: 8px 22px;
+            border: 1px solid #fff;
+            border-radius: 25px;
+            letter-spacing: 1px;
+        }
+
+        .work-info {
+            padding: 16px 18px;
+        }
+
+        .work-info h3 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .work-info .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .work-info .meta p {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+
+        .work-info .tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            background: #f5f0eb;
+            color: #b0977d;
+            border-radius: 12px;
+        }
+
+        /* ========== Lightbox ========== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .lightbox.open { display: flex; }
+
+        .lightbox img {
+            max-width: 88%;
+            max-height: 78vh;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        }
+
+        .lightbox .caption {
+            color: rgba(255,255,255,0.8);
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .lightbox .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox .close-btn:hover { opacity: 1; }
+
+        /* ========== 页脚 ========== */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #bbb;
+            font-size: 0.8rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* ========== 回到顶部 ========== */
+        .back-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 42px;
+            height: 42px;
+            background: #2c2c2c;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+
+        .back-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-top:hover {
+            background: #c4a882;
+            transform: translateY(-2px);
+        }
+
+        /* ========== 动画 ========== */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 700px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            .hero-text h1 {
+                font-size: 1.6rem;
+            }
+            .nav-inner ul {
+                gap: 16px;
+            }
+            .nav-inner ul a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航 -->
+    <nav>
+        <div class="nav-inner">
+            <div class="name">你的名字</div>
+            <ul>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#works">作品</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-text">
+            <div class="avatar">🎨</div>
+            <h1>你的名字</h1>
+            <p class="tagline">美术生 · 插画 / 油画 / 水彩 / 素描</p>
+            <p class="quote">"用画笔记录眼中的世界"</p>
+            <a href="#works" class="scroll-hint">浏览作品 ↓</a>
+        </div>
+    </div>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <div class="section-title">
+            <h2>关于我</h2>
+            <div class="line"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-left fade-in">
+                <p>你好，我是一名美术生，目前就读于 XX 美术学院。从小就对色彩和线条有着天然的敏感，喜欢用画笔表达内心的感受。</p>
+                <p>擅长油画、水彩和数字插画，作品风格偏向写实与意象结合。在校期间多次参加画展和专业比赛，也有过一些商业合作的经历。</p>
+                <p>希望未来能从事与插画或视觉艺术相关的工作，用创作连接生活与美。</p>
+            </div>
+            <div class="about-right fade-in">
+                <div class="stat-box">
+                    <span class="num">50+</span>
+                    <span class="label">完成作品</span>
+                </div>
+                <div class="stat-box">
+                    <span class="num">5</span>
+                    <span class="label">参展经历</span>
+                </div>
+                <div class="stat-box">
+                    <span class="num">3</span>
+                    <span class="label">获奖次数</span>
+                </div>
+                <div class="stat-box">
+                    <span class="num">2</span>
+                    <span class="label">商业合作</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section id="works">
+        <div class="section-title">
+            <h2>作品展示</h2>
+            <div class="line"></div>
+            <p>部分精选作品，点击可放大查看</p>
+        </div>
+
+        <div class="filter">
+            <button class="active" onclick="filterWorks('all', this)">全部</button>
+            <button onclick="filterWorks('sketch', this)">素描</button>
+            <button onclick="filterWorks('oil', this)">油画</button>
+            <button onclick="filterWorks('watercolor', this)">水彩</button>
+            <button onclick="filterWorks('illustration', this)">插画</button>
+        </div>
+
+        <div class="gallery">
+            <div class="work-card fade-in" data-category="sketch" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/01.jpg" alt="素描头像">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>素描头像</h3>
+                    <div class="meta">
+                        <p>铅笔 · 4开 · 2025</p>
+                        <span class="tag">素描</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="oil" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/02.jpg" alt="黄昏风景">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>黄昏风景</h3>
+                    <div class="meta">
+                        <p>布面油画 · 60×80cm · 2025</p>
+                        <span class="tag">油画</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="watercolor" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/03.jpg" alt="春日花卉">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>春日花卉</h3>
+                    <div class="meta">
+                        <p>纸本水彩 · A3 · 2025</p>
+                        <span class="tag">水彩</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="illustration" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/04.jpg" alt="城市夜景插画">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>城市夜景插画</h3>
+                    <div class="meta">
+                        <p>iPad 数字绘画 · 2024</p>
+                        <span class="tag">插画</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="sketch" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/05.jpg" alt="静物组合">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>静物组合</h3>
+                    <div class="meta">
+                        <p>炭笔 · 4开 · 2024</p>
+                        <span class="tag">素描</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="oil" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/06.jpg" alt="自画像">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>自画像</h3>
+                    <div class="meta">
+                        <p>布面油画 · 50×60cm · 2024</p>
+                        <span class="tag">油画</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="watercolor" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/07.jpg" alt="江南水乡">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>江南水乡</h3>
+                    <div class="meta">
+                        <p>纸本水彩 · A3 · 2024</p>
+                        <span class="tag">水彩</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card fade-in" data-category="illustration" onclick="openLightbox(this)">
+                <div class="img-wrap">
+                    <img src="images/08.jpg" alt="绘本插图">
+                    <div class="overlay"><span>查看详情</span></div>
+                </div>
+                <div class="work-info">
+                    <h3>绘本插图</h3>
+                    <div class="meta">
+                        <p>Procreate · 2024</p>
+                        <span class="tag">插画</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2025 你的名字 · 用画笔记录生活</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="close-btn" onclick="closeLightbox(event)">&times;</button>
+        <img id="lightboxImg" src="" alt="">
+        <div class="caption" id="lightboxCaption"></div>
+    </div>
+
+    <!-- 回到顶部 -->
+    <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // 分类筛选
+        function filterWorks(cat, btn) {
+            document.querySelectorAll('.filter button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.work-card').forEach(card => {
+                card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+            });
+        }
+
+        // 图片放大
+        function openLightbox(card) {
+            const img = card.querySelector('img');
+            const h3 = card.querySelector('h3').textContent;
+            const p = card.querySelector('.meta p').textContent;
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightboxCaption').textContent = h3 + ' — ' + p;
+            document.getElementById('lightbox').classList.add('open');
+        }
+
+        function closeLightbox(e) {
+            if (e.target.id === 'lightbox' || e.target.classList.contains('close-btn')) {
+                document.getElementById('lightbox').classList.remove('open');
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
+        });
+
+        // 回到顶部
+        window.addEventListener('scroll', () => {
+            document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+        });
+
+        // 滚动动画
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    </script>
+</body>
+</html>
