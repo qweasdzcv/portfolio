@@ -479,7 +479,7 @@
         <div class="hero-text">
             <div class="avatar">🎨</div>
             <h1>你的名字</h1>
-            <p class="tagline">美术生 · 插画 / 油画 / 水彩 / 素描</p>
+            <p class="tagline">设计师 · 插画 / 品牌 / 书籍 / IP</p>
             <p class="quote">"用画笔记录眼中的世界"</p>
             <a href="#works" class="scroll-hint">浏览作品 ↓</a>
         </div>
@@ -528,125 +528,13 @@
 
         <div class="filter">
             <button class="active" onclick="filterWorks('all', this)">全部</button>
-            <button onclick="filterWorks('sketch', this)">素描</button>
-            <button onclick="filterWorks('oil', this)">油画</button>
-            <button onclick="filterWorks('watercolor', this)">水彩</button>
-            <button onclick="filterWorks('illustration', this)">插画</button>
+            <button onclick="filterWorks('book', this)">书籍设计</button>
+            <button onclick="filterWorks('brand', this)">品牌设计</button>
+            <button onclick="filterWorks('ip', this)">IP形象设计</button>
+            <button onclick="filterWorks('illustration', this)">插画设计</button>
         </div>
 
-        <div class="gallery">
-            <div class="work-card fade-in" data-category="sketch" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/01.jpg" alt="素描头像">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>素描头像</h3>
-                    <div class="meta">
-                        <p>铅笔 · 4开 · 2025</p>
-                        <span class="tag">素描</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="oil" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/02.jpg" alt="黄昏风景">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>黄昏风景</h3>
-                    <div class="meta">
-                        <p>布面油画 · 60×80cm · 2025</p>
-                        <span class="tag">油画</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="watercolor" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/03.jpg" alt="春日花卉">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>春日花卉</h3>
-                    <div class="meta">
-                        <p>纸本水彩 · A3 · 2025</p>
-                        <span class="tag">水彩</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="illustration" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/04.jpg" alt="城市夜景插画">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>城市夜景插画</h3>
-                    <div class="meta">
-                        <p>iPad 数字绘画 · 2024</p>
-                        <span class="tag">插画</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="sketch" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/05.jpg" alt="静物组合">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>静物组合</h3>
-                    <div class="meta">
-                        <p>炭笔 · 4开 · 2024</p>
-                        <span class="tag">素描</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="oil" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/06.jpg" alt="自画像">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>自画像</h3>
-                    <div class="meta">
-                        <p>布面油画 · 50×60cm · 2024</p>
-                        <span class="tag">油画</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="watercolor" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/07.jpg" alt="江南水乡">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>江南水乡</h3>
-                    <div class="meta">
-                        <p>纸本水彩 · A3 · 2024</p>
-                        <span class="tag">水彩</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="work-card fade-in" data-category="illustration" onclick="openLightbox(this)">
-                <div class="img-wrap">
-                    <img src="images/08.jpg" alt="绘本插图">
-                    <div class="overlay"><span>查看详情</span></div>
-                </div>
-                <div class="work-info">
-                    <h3>绘本插图</h3>
-                    <div class="meta">
-                        <p>Procreate · 2024</p>
-                        <span class="tag">插画</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="gallery" id="gallery"></div>
     </section>
 
     <!-- 页脚 -->
@@ -665,7 +553,118 @@
     <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script>
-        // 分类筛选
+        const workFiles = {
+            book: [
+                'image/书籍设计/书籍排版CMYK-02.png',
+                'image/书籍设计/书籍排版CMYK-03.png',
+                'image/书籍设计/书籍排版CMYK-04.png',
+                'image/书籍设计/书籍排版CMYK-05.png',
+                'image/书籍设计/书籍排版CMYK-06.png',
+                'image/书籍设计/书籍排版CMYK-07.png',
+                'image/书籍设计/书籍排版CMYK-08.png',
+                'image/书籍设计/书籍排版CMYK-09.png',
+                'image/书籍设计/书籍排版CMYK-11.png',
+                'image/书籍设计/书籍排版CMYK-12.png',
+                'image/书籍设计/书籍排版CMYK-13.png',
+                'image/书籍设计/书籍排版CMYK_画板 1.png',
+                'image/书籍设计/书籍结课a3.jpg',
+                'image/书籍设计/标题页高云.jpg'
+            ],
+            brand: [
+                'image/品牌设计/品牌1/1.png',
+                'image/品牌设计/品牌1/10.png',
+                'image/品牌设计/品牌1/11.png',
+                'image/品牌设计/品牌1/12.png',
+                'image/品牌设计/品牌1/13.png',
+                'image/品牌设计/品牌1/14.png',
+                'image/品牌设计/品牌1/2.png',
+                'image/品牌设计/品牌1/3.png',
+                'image/品牌设计/品牌1/4.png',
+                'image/品牌设计/品牌1/5.png',
+                'image/品牌设计/品牌1/6.png',
+                'image/品牌设计/品牌1/7.png',
+                'image/品牌设计/品牌1/8.png',
+                'image/品牌设计/品牌1/9.png',
+                'image/品牌设计/品牌2/00d0230ac761d418e89650aecd2491a.jpg',
+                'image/品牌设计/品牌2/9d63b6ce66dab72ab90df2b31fdc0c3.jpg',
+                'image/品牌设计/品牌2/e22cdc5c7af4f86acfe8a78f263685c.jpg',
+                'image/品牌设计/品牌3/民宿排版_画板 1.png',
+                'image/品牌设计/品牌3/集合.png',
+                'image/品牌设计/品牌4/11cff56a05ce7725f3760b03717fa07.jpg',
+                'image/品牌设计/品牌4/9ff5ada570dd60b939c702ba097aad8.jpg',
+                'image/品牌设计/品牌4/ac2bbb59231f8bf060185f7a5b7c096.jpg',
+                'image/品牌设计/品牌4/af1cd09f6ff4fcdebc17c7cea9c6a6b.jpg',
+                'image/品牌设计/品牌4/dadd6325c618853afc93db393cb8d8d.jpg'
+            ],
+            ip: [
+                'image/ip形象设计/哈尔滨IP表情.jpg',
+                'image/ip形象设计/哈尔滨ip排版.jpg',
+                'image/ip形象设计/瓦猫排版.png',
+                'image/ip形象设计/钥匙扣1.png',
+                'image/ip形象设计/钥匙扣2.png',
+                'image/ip形象设计/钥匙扣3.png',
+                'image/ip形象设计/钥匙扣4.png'
+            ],
+            illustration: [
+                'image/插画/59c9009bb81d0ca7d3780a36f82260a.jpg',
+                'image/插画/8cd5819657f631912cbe29eacb66ac3.jpg',
+                'image/插画/分镜9.5.png',
+                'image/插画/分镜9.png',
+                'image/插画/动画组合.jpg',
+                'image/插画/民俗文化排版-恢复的-恢复的-恢复的-恢复的.jpg',
+                'image/插画/画板 1.png',
+                'image/插画/线稿ui_画板 1.jpg',
+                'image/插画/镜头1.jpg',
+                'image/插画/镜头2.jpg',
+                'image/插画/镜头3.jpg',
+                'image/插画/镜头4.jpg',
+                'image/插画/镜头5.jpg',
+                'image/插画/镜头6.jpg',
+                'image/插画/镜头7.jpg',
+                'image/插画/镜头8.jpg',
+                'image/插画/镜头9.jpg',
+                'image/插画/长图1.png',
+                'image/插画/长图2.png',
+                'image/插画/长图3.png'
+            ]
+        };
+
+        const works = Object.entries(workFiles).flatMap(([category, paths]) =>
+            paths.map(image => {
+                const fileName = image.split('/').pop().replace(/\.[^.]+$/, '');
+                const tagMap = { book: '书籍设计', brand: '品牌设计', ip: 'IP形象', illustration: '插画设计' };
+                const metaMap = { book: '书籍作品', brand: '品牌作品', ip: 'IP作品', illustration: '插画作品' };
+                return {
+                    category,
+                    title: fileName,
+                    image,
+                    meta: `${metaMap[category]} · 2025`,
+                    tag: tagMap[category]
+                };
+            })
+        );
+
+        const gallery = document.getElementById('gallery');
+
+        function renderWorks() {
+            gallery.innerHTML = works.map(work => `
+                <div class="work-card fade-in" data-category="${work.category}" data-title="${work.title}" data-meta="${work.meta}" onclick="openLightbox(this)">
+                    <div class="img-wrap">
+                        <img src="${encodeURI(work.image)}" alt="${work.title}">
+                        <div class="overlay"><span>查看详情</span></div>
+                    </div>
+                    <div class="work-info">
+                        <h3>${work.title}</h3>
+                        <div class="meta">
+                            <p>${work.meta}</p>
+                            <span class="tag">${work.tag}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            observeFadeIn();
+        }
+
         function filterWorks(cat, btn) {
             document.querySelectorAll('.filter button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -674,13 +673,12 @@
             });
         }
 
-        // 图片放大
         function openLightbox(card) {
             const img = card.querySelector('img');
-            const h3 = card.querySelector('h3').textContent;
-            const p = card.querySelector('.meta p').textContent;
+            const title = card.dataset.title;
+            const meta = card.dataset.meta;
             document.getElementById('lightboxImg').src = img.src;
-            document.getElementById('lightboxCaption').textContent = h3 + ' — ' + p;
+            document.getElementById('lightboxCaption').textContent = title + ' — ' + meta;
             document.getElementById('lightbox').classList.add('open');
         }
 
@@ -694,6 +692,10 @@
             if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('open');
         });
 
+        function observeFadeIn() {
+            document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+        }
+
         // 回到顶部
         window.addEventListener('scroll', () => {
             document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
@@ -703,7 +705,8 @@
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
         }, { threshold: 0.1 });
-        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+        renderWorks();
     </script>
 </body>
 </html>
