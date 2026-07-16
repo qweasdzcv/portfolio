@@ -553,6 +553,8 @@
     <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script>
+        const OSS_BASE = 'https://web-ai1111.oss-cn-beijing.aliyuncs.com/'; 
+
         const workFiles = {
             book: [
                 'image/书籍设计/书籍排版CMYK-02.webp',
@@ -637,7 +639,7 @@
                 return {
                     category,
                     title: fileName,
-                    image,
+                    image: OSS_BASE + image,
                     meta: `${metaMap[category]} · 2025`,
                     tag: tagMap[category]
                 };
