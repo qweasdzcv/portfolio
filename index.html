@@ -652,7 +652,7 @@
             gallery.innerHTML = works.map(work => `
                 <div class="work-card fade-in" data-category="${work.category}" data-title="${work.title}" data-meta="${work.meta}" onclick="openLightbox(this)">
                     <div class="img-wrap">
-                        <img src="${encodeURI(work.image)}" alt="${work.title}" loading="lazy">
+                        <img src="${encodeURI(work.image)}?x-oss-process=image/resize,w_800" alt="${work.title}" loading="lazy">
                         <div class="overlay"><span>查看详情</span></div>
                     </div>
                     <div class="work-info">
